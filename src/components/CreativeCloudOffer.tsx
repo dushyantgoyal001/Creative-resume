@@ -15,6 +15,16 @@ export default function CreativeCloudOffer() {
       
       {/* Card Content */}
       <div className="p-8">
+        {/* Summary Section - Full Width */}
+        <div className="mb-8">
+          <h3 className="text-sm font-bold mb-3 tracking-wide">SUMMARY</h3>
+          <p className="text-base text-gray-700 leading-relaxed">
+            {identityCard.summary}
+          </p>
+        </div>
+
+        <div className="border-t border-gray-200 mb-8"></div>
+
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left Column */}
@@ -22,7 +32,7 @@ export default function CreativeCloudOffer() {
             {/* Signature Style */}
             <div>
               <h3 className="text-sm font-bold mb-2 tracking-wide">SIGNATURE STYLE</h3>
-              <p className="text-2xl font-normal">{identityCard.signatureStyle}</p>
+              <p className="text-base font-normal">{identityCard.signatureStyle}</p>
             </div>
             
             <div className="border-t border-gray-200"></div>
@@ -32,7 +42,7 @@ export default function CreativeCloudOffer() {
               <h3 className="text-sm font-bold mb-3 tracking-wide">CORE THEMES</h3>
               <div className="space-y-1">
                 {identityCard.coreThemes.map((theme, index) => (
-                  <p key={index} className="text-2xl font-normal">{theme}</p>
+                  <p key={index} className="text-base font-normal">{theme}</p>
                 ))}
               </div>
             </div>
@@ -50,7 +60,7 @@ export default function CreativeCloudOffer() {
                     className="w-6 h-6 invert"
                   />
                 </div>
-                <span className="text-2xl font-normal">{identityCard.portfolio.projectCount} projects</span>
+                <span className="text-base font-normal">{identityCard.portfolio.projectCount} projects</span>
               </div>
             </div>
           </div>
@@ -64,11 +74,15 @@ export default function CreativeCloudOffer() {
                 {identityCard.techniques.map((technique, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <div className="flex space-x-2">
-                      <div className="w-10 h-10 bg-gray-900 rounded flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">{technique.appName}</span>
+                      <div className="w-10 h-10 rounded overflow-hidden flex items-center justify-center">
+                        <img 
+                          src={technique.icon}
+                          alt={technique.appName}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
-                    <span className="text-xl">{technique.name}</span>
+                    <span className="text-base">{technique.name}</span>
                   </div>
                 ))}
               </div>
@@ -81,7 +95,7 @@ export default function CreativeCloudOffer() {
               <h3 className="text-sm font-bold mb-3 tracking-wide">STRENGTHS & SKILL MARKERS</h3>
               <div className="space-y-1">
                 {identityCard.strengths.map((strength, index) => (
-                  <p key={index} className="text-xl font-normal">{strength}</p>
+                  <p key={index} className="text-base font-normal">{strength}</p>
                 ))}
               </div>
             </div>
@@ -92,11 +106,13 @@ export default function CreativeCloudOffer() {
             <div className="flex items-center justify-between">
               {identityCard.verification.isVerified && (
                 <div className="flex items-center space-x-2">
-                  <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
-                  </svg>
+                  <img 
+                    src="/images/verifiedLogo.svg" 
+                    alt="Verified"
+                    className="w-8 h-8"
+                  />
                   <div>
-                    <div className="text-xl font-bold">{identityCard.verification.platform}</div>
+                    <div className="text-base font-bold">{identityCard.verification.platform}</div>
                     <div className="text-xs font-semibold tracking-wider">VERIFIED</div>
                   </div>
                 </div>

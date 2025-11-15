@@ -18,6 +18,7 @@ export const resumeData = {
 
   // Creative Identity Card
   identityCard: {
+    summary: "A versatile creative professional specializing in digital design and visual storytelling. Combining technical expertise with artistic vision to deliver compelling visual experiences across multiple platforms and mediums.",
     signatureStyle: "Bold color language",
     coreThemes: [
       "Urban movement",
@@ -25,10 +26,10 @@ export const resumeData = {
       "Surreal nature"
     ],
     techniques: [
-      { icon: "/icons/adobe-ai.svg", name: "Digital illustration", appName: "Ai" },
-      { icon: "/icons/photoshop-express.svg", name: "Vibrant palette", appName: "Ps" },
-      { icon: "/icons/adobe-id.svg", name: "Layout design", appName: "Id" },
-      { icon: "/icons/premiere-rush.svg", name: "Video editing", appName: "Pr" }
+      { icon: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg", name: "Digital illustration", appName: "Ai" },
+      { icon: "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg", name: "Vibrant palette", appName: "Ps" },
+      { icon: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Adobe_Firefly_Logo.svg", name: "AI-powered design", appName: "Ff" },
+      { icon: "https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg", name: "Video editing", appName: "Pr" }
     ],
     strengths: [
       "Strong typography",
