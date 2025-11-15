@@ -1,5 +1,5 @@
 import React from 'react';
-import { helpSections, footerLinks } from '@/data/accountData';
+import { resumeData } from '@/data/accountData';
 
 export default function Footer() {
   return (
@@ -9,7 +9,7 @@ export default function Footer() {
         <h2 className="text-2xl font-semibold mb-8">Get help</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {helpSections.map((section) => (
+          {resumeData.helpSections.map((section) => (
             <div key={section.title}>
               <div className="flex items-center space-x-3 mb-4">
                 {/* Icon placeholder */}
@@ -70,7 +70,7 @@ export default function Footer() {
             {/* Footer Links */}
             <div className="flex flex-wrap justify-center items-center space-x-4 text-xs text-gray-400">
               <span>Copyright © 2025 Adobe. All rights reserved.</span>
-              {footerLinks.map((link, index) => (
+              {resumeData.footerLinks.map((link, index) => (
                 <React.Fragment key={link.label}>
                   <span>/</span>
                   <a 

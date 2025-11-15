@@ -1,5 +1,5 @@
 import React from 'react';
-import { userData, socialSignIns } from '@/data/accountData';
+import { resumeData } from '@/data/accountData';
 
 export default function ProfileCard() {
   return (
@@ -8,15 +8,15 @@ export default function ProfileCard() {
       <div className="flex flex-col items-center mb-6">
         <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
           <img 
-            src={userData.avatar} 
-            alt={userData.name}
+            src={resumeData.user.avatar} 
+            alt={resumeData.user.name}
             className="w-full h-full object-cover"
           />
         </div>
         
         {/* Name */}
         <h2 className="text-xl font-semibold text-gray-900 mb-2">
-          {userData.name}
+          {resumeData.user.name}
         </h2>
         
         {/* Edit Profile Button */}
@@ -27,7 +27,7 @@ export default function ProfileCard() {
 
       {/* Email */}
       <div className="mb-4">
-        <p className="text-sm text-gray-600 mb-1">{userData.email}</p>
+        <p className="text-sm text-gray-600 mb-1">{resumeData.user.email}</p>
         <a href="#" className="text-sm text-blue-600 hover:underline">
           Change email
         </a>
@@ -35,16 +35,18 @@ export default function ProfileCard() {
 
       {/* Password Status */}
       <div className="mb-6">
-        <p className="text-sm text-gray-600 mb-1">No current password set</p>
+        <p className="text-sm text-gray-600 mb-1">
+          {resumeData.user.hasPassword ? 'Password is set' : 'No current password set'}
+        </p>
         <a href="#" className="text-sm text-blue-600 hover:underline">
-          Set password
+          {resumeData.user.hasPassword ? 'Change password' : 'Set password'}
         </a>
       </div>
 
       {/* Social Sign-ins */}
       <div>
         <div className="flex items-center justify-center space-x-3 mb-3">
-          {socialSignIns.map((social) => (
+          {resumeData.socialSignIns.map((social) => (
             <div
               key={social.name}
               className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center"

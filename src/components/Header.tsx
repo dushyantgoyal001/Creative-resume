@@ -1,5 +1,5 @@
 import React from 'react';
-import { navigationItems } from '@/data/accountData';
+import { resumeData } from '@/data/accountData';
 
 export default function Header() {
   return (
@@ -22,7 +22,7 @@ export default function Header() {
 
             {/* Navigation */}
             <nav className="hidden md:flex space-x-6">
-              {navigationItems.map((item) => (
+              {resumeData.navigation.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
@@ -57,7 +57,7 @@ export default function Header() {
             {/* Profile Avatar */}
             <button className="w-8 h-8 rounded-full overflow-hidden">
               <img 
-                src="/images/avatar.png" 
+                src={resumeData.user.avatar}
                 alt="Profile" 
                 className="w-full h-full object-cover"
               />

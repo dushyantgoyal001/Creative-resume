@@ -1,7 +1,10 @@
 import React from 'react';
-import { userData } from '@/data/accountData';
+import { resumeData } from '@/data/accountData';
 
 export default function HeroBanner() {
+  // Get first name from centralized data
+  const firstName = resumeData.user.name.split(' ')[0];
+  
   return (
     <div className="relative w-full h-36 overflow-hidden">
       {/* Gradient Background */}
@@ -13,7 +16,7 @@ export default function HeroBanner() {
       {/* Welcome Text */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <h1 className="text-white text-3xl md:text-4xl font-light">
-          Welcome to your account, {userData.name.split(' ')[0]}
+          Welcome to your account, {firstName}
         </h1>
       </div>
     </div>
