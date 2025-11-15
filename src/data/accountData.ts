@@ -35,15 +35,30 @@ export const resumeData = {
       "Strong typography",
       "Excellent color harmony"
     ],
-    portfolio: {
-      platform: "Behance",
-      icon: "/icons/behance.svg",
-      projectCount: 52
-    },
+    portfolios: [
+      {
+        platform: "Behance",
+        icon: "/icons/behance.svg",
+        projectCount: 52
+      },
+      {
+        platform: "Adobe Express",
+        icon: "https://upload.wikimedia.org/wikipedia/commons/3/30/Adobe_Express_Logo.svg",
+        projectCount: 28
+      }
+    ],
     verification: {
       isVerified: true,
       platform: "Adobe"
-    }
+    },
+    shareOptions: [
+      { name: "Facebook", icon: "/icons/facebook.svg", url: "https://facebook.com" },
+      { name: "Twitter", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg", url: "https://twitter.com" },
+      { name: "LinkedIn", icon: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg", url: "https://linkedin.com" },
+      { name: "WhatsApp", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg", url: "https://whatsapp.com" },
+      { name: "Email", icon: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg", url: "mailto:" },
+      { name: "Copy Link", icon: "/icons/link.svg", url: "#" }
+    ]
   },
 
   // Social Sign-in Options
