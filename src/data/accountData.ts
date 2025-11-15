@@ -26,10 +26,10 @@ export const resumeData = {
       "Surreal nature"
     ],
     techniques: [
-      { icon: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg", name: "Digital illustration", appName: "Ai" },
-      { icon: "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg", name: "Vibrant palette", appName: "Ps" },
-      { icon: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Adobe_Firefly_Logo.svg", name: "AI-powered design", appName: "Ff" },
-      { icon: "https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg", name: "Video editing", appName: "Pr" }
+      { icon: "/icons/illustrator.svg", name: "Digital illustration", appName: "Ai" },
+      { icon: "/icons/photoshop.svg", name: "Vibrant palette", appName: "Ps" },
+      { icon: "/icons/firefly.svg", name: "AI-powered design", appName: "Ff" },
+      { icon: "/icons/premiere.svg", name: "Video editing", appName: "Pr" }
     ],
     strengths: [
       "Strong typography",
@@ -43,7 +43,7 @@ export const resumeData = {
       },
       {
         platform: "Adobe Express",
-        icon: "https://upload.wikimedia.org/wikipedia/commons/3/30/Adobe_Express_Logo.svg",
+        icon: "/icons/express.svg",
         projectCount: 28
       }
     ],
@@ -53,11 +53,11 @@ export const resumeData = {
     },
     shareOptions: [
       { name: "Facebook", icon: "/icons/facebook.svg", url: "https://facebook.com" },
-      { name: "Twitter", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg", url: "https://twitter.com" },
-      { name: "LinkedIn", icon: "https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg", url: "https://linkedin.com" },
-      { name: "WhatsApp", icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg", url: "https://whatsapp.com" },
-      { name: "Email", icon: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg", url: "mailto:" },
-      { name: "Copy Link", icon: "/icons/link.svg", url: "#" }
+      { name: "Twitter", icon: "/icons/twitter.svg", url: "https://twitter.com" },
+      { name: "LinkedIn", icon: "/icons/linkedin.svg", url: "https://linkedin.com" },
+      { name: "WhatsApp", icon: "/icons/whatsapp.svg", url: "https://whatsapp.com" },
+      { name: "Email", icon: "/icons/gmail.svg", url: "mailto:" },
+      { name: "Instagram", icon: "/icons/instagram.svg", url: "https://instagram.com" }
     ]
   },
 
@@ -66,9 +66,16 @@ export const resumeData = {
     { name: "Google", icon: "/icons/google.svg" },
     { name: "Facebook", icon: "/icons/facebook.svg" },
     { name: "Apple", icon: "/icons/apple.svg" },
-    { name: "Microsoft", icon: "/icons/microsoft.svg" },
-    { name: "iCloud", icon: "/icons/icloud.svg" },
-    { name: "Message", icon: "/icons/message.svg" },
+    { name: "Microsoft", icon: "/icons/microsoft-color.svg" },
+    { name: "Gmail", icon: "/icons/gmail-color.svg" },
+    { name: "Instagram", icon: "/icons/instagram.svg" },
+  ],
+
+  // Profile Social Links
+  profileSocialLinks: [
+    { name: "Microsoft", icon: "/icons/microsoft-color.svg", url: "https://microsoft.com" },
+    { name: "Gmail", icon: "/icons/gmail-color.svg", url: "mailto:" },
+    { name: "Instagram", icon: "/icons/instagram.svg", url: "https://instagram.com" },
   ],
 
   // Help Sections in Footer

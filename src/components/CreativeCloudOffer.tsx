@@ -1,11 +1,77 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { resumeData } from '@/data/accountData';
+import html2canvas from 'html2canvas';
 
 export default function CreativeCloudOffer() {
   const identityCard = resumeData.identityCard;
   const [showShareModal, setShowShareModal] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  const handleDownload = async () => {
+    if (cardRef.current) {
+      // Hide the buttons temporarily
+      const buttonsDiv = cardRef.current.querySelector('#action-buttons') as HTMLElement;
+      if (buttonsDiv) {
+        buttonsDiv.style.display = 'none';
+      }
+      
+      // Add padding temporarily for download (white space around the card)
+      const cardElement = cardRef.current;
+      const originalPadding = cardElement.style.padding;
+      cardElement.style.padding = '120px';
+      
+      // Update title to include user's first name and make it smaller
+      const titleElement = cardRef.current.querySelector('h1');
+      const originalTitle = titleElement?.textContent || '';
+      const originalFontSize = titleElement?.style.fontSize || '';
+      const firstName = resumeData.user.name.split(' ')[0];
+      if (titleElement) {
+        titleElement.textContent = `${firstName.toUpperCase()}'S CREATIVE ID`;
+        titleElement.style.fontSize = '1.875rem'; // text-3xl equivalent
+      }
+      
+      try {
+        // Wait for everything to render
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        const canvas = await html2canvas(cardRef.current, {
+          backgroundColor: '#ffffff',
+          scale: 2,
+          logging: false,
+          allowTaint: true
+        });
+        
+        // Convert canvas to blob and download
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'creative-id-card.png';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+          }
+        });
+      } catch (error) {
+        console.error('Error generating image:', error);
+        alert('Error downloading image. Please try again.');
+      } finally {
+        // Restore original styling and title
+        cardElement.style.padding = originalPadding;
+        if (titleElement) {
+          titleElement.textContent = originalTitle;
+          titleElement.style.fontSize = originalFontSize;
+        }
+        
+        // Show the buttons again
+        if (buttonsDiv) {
+          buttonsDiv.style.display = 'flex';
+        }
+      }
+    }
+  };
   
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -14,20 +80,37 @@ export default function CreativeCloudOffer() {
   
   return (
     <>
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-lg">
+      <div ref={cardRef} className="bg-transparent">
+        <div className="bg-white rounded-3xl border border-gray-200 overflow-hidden shadow-lg">
       {/* Gradient Header with Title */}
-      <div className="h-32 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-white tracking-tight">
-          CREATIVE IDENTITY CARD
-        </h1>
+          <div className="h-40 relative flex items-start justify-between px-8 pt-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent via-white/30 via-white/60 to-white"></div>
+            <h1 className="text-4xl font-bold text-white tracking-tight relative z-10">
+              CREATIVE ID
+            </h1>
+        
+        {/* Adobe Verified Badge */}
+        {identityCard.verification.isVerified && (
+          <div className="flex items-center space-x-2 relative z-10">
+            <img 
+              src="/images/verifiedLogo.svg" 
+              alt="Verified"
+              className="w-8 h-8 invert"
+            />
+            <div className="text-white">
+              <div className="text-xl font-bold">{identityCard.verification.platform}</div>
+              <div className="text-xs font-semibold tracking-wider">VERIFIED</div>
+            </div>
+          </div>
+        )}
       </div>
       
       {/* Card Content */}
-      <div className="p-8">
+      <div className="p-8 pt-0 -mt-12 relative z-10">
         {/* Summary Section - Full Width */}
-        <div className="mb-8">
-          <h3 className="text-sm font-bold mb-3 tracking-wide">SUMMARY</h3>
-          <p className="text-base text-gray-700 leading-relaxed">
+        <div className="mb-8 mt-4">
+          <p className="text-base text-gray-700 leading-relaxed font-semibold">
             {identityCard.summary}
           </p>
         </div>
@@ -60,7 +143,7 @@ export default function CreativeCloudOffer() {
             
             {/* Portfolio Proof */}
             <div>
-              <h3 className="text-sm font-bold mb-3 tracking-wide">PORTFOLIO PROOF</h3>
+              <h3 className="text-sm font-bold mb-3 tracking-wide">PORTFOLIO</h3>
               <div className="space-y-3">
                 {identityCard.portfolios.map((portfolio, index) => (
                   <div key={index} className="flex items-center space-x-3">
@@ -115,43 +198,30 @@ export default function CreativeCloudOffer() {
             
             <div className="border-t border-gray-200"></div>
             
-            {/* Adobe Verified & Actions */}
-            <div className="flex items-center justify-between">
-              {identityCard.verification.isVerified && (
-                <div className="flex items-center space-x-2">
-                  <img 
-                    src="/images/verifiedLogo.svg" 
-                    alt="Verified"
-                    className="w-8 h-8"
-                  />
-                  <div>
-                    <div className="text-base font-bold">{identityCard.verification.platform}</div>
-                    <div className="text-xs font-semibold tracking-wider">VERIFIED</div>
-                  </div>
-                </div>
-              )}
-              
-              {/* Action Buttons */}
-              <div className="flex space-x-2">
-                <button className="w-12 h-12 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                  </svg>
-                </button>
-                <button 
-                  onClick={() => setShowShareModal(true)}
-                  className="w-12 h-12 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                </button>
-              </div>
+            {/* Download and Share Buttons */}
+            <div id="action-buttons" className="flex justify-end space-x-3">
+              <button 
+                onClick={handleDownload}
+                className="w-12 h-12 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
+              <button 
+                onClick={() => setShowShareModal(true)}
+                className="w-12 h-12 bg-gray-100 hover:bg-gray-200 rounded-xl flex items-center justify-center transition"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+        </div>
+      </div>
 
     {/* Share Modal */}
     {showShareModal && (
@@ -165,7 +235,7 @@ export default function CreativeCloudOffer() {
         >
           {/* Modal Header */}
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-gray-900">Share Profile</h3>
+            <h3 className="text-2xl font-bold text-gray-900">Share Creative ID</h3>
             <button 
               onClick={() => setShowShareModal(false)}
               className="text-gray-400 hover:text-gray-600 transition"
@@ -181,27 +251,15 @@ export default function CreativeCloudOffer() {
             {identityCard.shareOptions?.map((option, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  if (option.name === 'Copy Link') {
-                    handleCopyLink();
-                  } else {
-                    window.open(option.url, '_blank');
-                  }
-                }}
+                onClick={() => window.open(option.url, '_blank')}
                 className="flex flex-col items-center space-y-2 p-4 rounded-xl hover:bg-gray-50 transition"
               >
                 <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                  {option.name === 'Copy Link' ? (
-                    <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                    </svg>
-                  ) : (
-                    <img 
-                      src={option.icon}
-                      alt={option.name}
-                      className="w-6 h-6 object-contain"
-                    />
-                  )}
+                  <img 
+                    src={option.icon}
+                    alt={option.name}
+                    className="w-6 h-6 object-contain"
+                  />
                 </div>
                 <span className="text-xs font-medium text-gray-700">{option.name}</span>
               </button>
