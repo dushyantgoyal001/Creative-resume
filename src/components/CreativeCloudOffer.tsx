@@ -86,7 +86,7 @@ export default function CreativeCloudOffer() {
           <div className="h-40 relative flex items-start justify-between px-8 pt-8">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400"></div>
             <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent via-white/30 via-white/60 to-white"></div>
-            <h1 className="text-4xl font-bold text-white tracking-tight relative z-10">
+            <h1 className="text-3xl font-bold text-white tracking-tight relative z-10">
               CREATIVE ID
             </h1>
         
